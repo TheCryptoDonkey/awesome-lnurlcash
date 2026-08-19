@@ -1,0 +1,25 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: awesome-lint
+        run: npx awesome-lint
+      - name: no dead links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --no-progress --exclude-mail README.md CONTRIBUTING.md
+          fail: true
