@@ -21,5 +21,5 @@ jobs:
       - name: no dead links
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --no-progress --exclude-mail README.md CONTRIBUTING.md
+          args: --no-progress README.md CONTRIBUTING.md
           fail: true
