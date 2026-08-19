@@ -14,10 +14,14 @@ Guidelines, none of them surprising:
   thing that does not exist yet.
 - **Say what it is, not what it aspires to be.** "A Go client library" beats
   "the fastest, most secure LNURLcash library".
-- **An em dash, and a full stop.** Consistency across the list matters more
-  than any individual entry's phrasing.
+- **A hyphen, and a full stop.** awesome-lint requires ` - ` between the link
+  and its description, and rejects an en or em dash there, so the whole list
+  uses a plain hyphen.
 - **Reference implementations stay first** in their section. Newcomers should
   reach dni's mint and wallet before anything else.
+- **Each link appears exactly once** in the list. awesome-lint rejects a
+  repeated URL, so an entry belongs in its own section rather than being
+  cross-listed; link a deeper page if you need to point somewhere twice.
 
 ## Removing an entry
 
