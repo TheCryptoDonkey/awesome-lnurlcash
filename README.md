@@ -20,6 +20,7 @@ still cash it out.
 - [Specification](#specification)
 - [Wallets](#wallets)
 - [Mints](#mints)
+- [Live services](#live-services)
 - [Hardware](#hardware)
 - [Libraries](#libraries)
 - [Testing and conformance](#testing-and-conformance)
@@ -30,6 +31,8 @@ still cash it out.
 
 - [LUD-25 draft](https://github.com/lnurl/luds/pull/301) - The specification,
   under review. Comments belong on the PR.
+- [LUD-25 rendered](https://github.com/lnurl/luds/blob/lnurlcash/25.md) - The
+  same text on its branch, for reading rather than reviewing.
 - [The LUD index](https://github.com/lnurl/luds) - Every LNURL specification.
 
 ## Wallets
@@ -37,14 +40,47 @@ still cash it out.
 - [lnurl-wallet](https://github.com/dni/lnurl-wallet) - The reference wallet,
   by dni, and the place to look first when a question is really about what the
   protocol means. A single static page with no backend and no accounts; notes
-  live encrypted in the browser. Hosted at
-  [wallet.lnurlcash.com](https://wallet.lnurlcash.com).
+  live encrypted in the browser.
+- [sattle](https://github.com/tompro/sattle) - An installable PWA, by tompro,
+  with an Android wrapper. Vue 3 and Quasar. Pins each mint's signing key and
+  asks before accepting a change, moves funds between mints, keeps an
+  encrypted backup locally or on Nostr, and runs an NWC service so other apps
+  can spend from it while it is open.
+- [notecase](https://github.com/forgesworn/notecase) - A CLI and a static
+  PWA over one engine, in TypeScript. Writes every replacement secret to disk
+  before its hash goes on the wire, parks a timed-out mutation as `ambiguous`
+  and settles it with `reconcile`, and can pay mint invoices through NWC.
 
 ## Mints
 
 - [lnurl-mint](https://github.com/dni/lnurl-mint) - The reference service, by
   dni. Python and FastAPI, backed by lnd or cln. Mint, rotate, split, merge,
   melt, optional fees, optional offline verification, and a sunset switch.
+- [moneyer](https://github.com/forgesworn/moneyer) - An independent
+  TypeScript implementation, sharing no code with the reference. Backed by
+  cln or lnd, stores notes in SQLite by `sha256(k1)` so the database never
+  holds a spend secret, and runs the conformance grader in its own test suite.
+
+## Live services
+
+Hosted instances you can point a wallet at today. A mint holds the sats
+behind every note it issues, so treat each as an experiment and keep amounts
+small.
+
+- [lnurlcash.com](https://lnurlcash.com) - The project site, by dni. A
+  one-page explanation of the protocol and where the pieces live.
+  [Source](https://github.com/dni/lnurlcash.com).
+- [wallet.lnurlcash.com](https://wallet.lnurlcash.com) - The reference wallet,
+  hosted. Works against any compliant mint.
+- [mint.forgesworn.dev](https://mint.forgesworn.dev) - An lnurl-mint
+  instance, payable at `mint@mint.forgesworn.dev`. Marked evaluation only by
+  its operator, with a small per-note cap.
+- [moneyer.dev](https://moneyer.dev) - The moneyer mint, payable at
+  `mint@moneyer.dev`. The page is itself a wallet-grade client: mint a note
+  in the browser, check one, or melt it, without installing anything.
+- [wallet.moneyer.dev](https://wallet.moneyer.dev) - The notecase PWA,
+  hosted. PIN or passkey unlock, and a Service Worker that never caches a
+  protocol call.
 
 ## Hardware
 
@@ -102,13 +138,18 @@ The parts that are easy to get wrong, and where each is explained.
 - [Melt semantics](https://github.com/dni/lnurl-mint#readme) - `OK` means the
   payment is in flight, not that the note is spent. See the reserved and
   `pending` states.
+- [Persist before disclose](https://github.com/forgesworn/notecase#the-safety-design) - A wallet's ordering rules, written down: the fresh secret hits disk before
+  its hash leaves the machine, and an uncertain outcome is a state to
+  reconcile, never a guess.
+- [Why phoenixd cannot back a mint](https://github.com/forgesworn/moneyer#what-it-is) - Minting needs a funding source that accepts a caller-supplied preimage.
+  cln and lnd do; phoenixd and NIP-47 `make_invoice` do not.
 - [Offline verification](https://github.com/TheCryptoDonkey/lnurlcash-conformance/blob/main/vectors/signature.json) - The exact signing scheme, including which end of the signature carries the
   recovery id.
 
 ## Contributing
 
 Additions welcome, particularly implementations in languages not listed here,
-and wallets or mints in the wild. Open a pull request; see
+and hosted mints or wallets in the wild. Open a pull request; see
 [CONTRIBUTING.md](CONTRIBUTING.md).
 
 Entries need a one-line description saying what the thing *is*, not what it

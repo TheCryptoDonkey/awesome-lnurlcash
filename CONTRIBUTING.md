@@ -19,6 +19,10 @@ Guidelines, none of them surprising:
   uses a plain hyphen.
 - **Reference implementations stay first** in their section. Newcomers should
   reach dni's mint and wallet before anything else.
+- **Live services must answer.** A hosted mint goes in only if
+  `https://host/.well-known/lnurlp/_` returns a `payRequest` carrying a
+  `withdrawLink`, and a hosted wallet only if it loads and can redeem a note
+  from a listed mint. Say which mint you tested against in the PR.
 - **Each link appears exactly once** in the list. awesome-lint rejects a
   repeated URL, so an entry belongs in its own section rather than being
   cross-listed; link a deeper page if you need to point somewhere twice.
