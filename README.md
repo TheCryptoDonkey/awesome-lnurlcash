@@ -70,17 +70,31 @@ small.
 - [lnurlcash.com](https://lnurlcash.com) - The project site, by dni. A
   one-page explanation of the protocol and where the pieces live.
   [Source](https://github.com/dni/lnurlcash.com).
+
+### Hosted wallets
+
 - [wallet.lnurlcash.com](https://wallet.lnurlcash.com) - The reference wallet,
   hosted. Works against any compliant mint.
-- [mint.forgesworn.dev](https://mint.forgesworn.dev) - An lnurl-mint
-  instance, payable at `mint@mint.forgesworn.dev`. Marked evaluation only by
-  its operator, with a small per-note cap.
-- [moneyer.dev](https://moneyer.dev) - The moneyer mint, payable at
-  `mint@moneyer.dev`. The page is itself a wallet-grade client: mint a note
-  in the browser, check one, or melt it, without installing anything.
 - [wallet.moneyer.dev](https://wallet.moneyer.dev) - The notecase PWA,
   hosted. PIN or passkey unlock, and a Service Worker that never caches a
   protocol call.
+
+### Public mints
+
+Each is payable at `mint@<host>` and the bare `_@<host>`. All but moneyer run
+lnurl-mint.
+
+- [mint.forgesworn.dev](https://mint.forgesworn.dev) - Marked evaluation only
+  by its operator, with a 25k sat cap per note.
+- [moneyer.dev](https://moneyer.dev) - The moneyer mint. The page is itself a
+  wallet-grade client: mint a note in the browser, check one, or melt it,
+  without installing anything.
+- [mint.600.wtf](https://mint.600.wtf) - "600 billion mint", on the `dnilabs`
+  node.
+- [lnurl.21mint.me](https://lnurl.21mint.me) - On the Azzamo node.
+- [lnurl.21linz.at](https://lnurl.21linz.at) - On the `21linz` node, which
+  peers over Tor.
+- [minty.exe.xyz](https://minty.exe.xyz) - Backed by Core Lightning.
 
 ## Hardware
 
